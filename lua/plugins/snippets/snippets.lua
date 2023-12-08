@@ -64,7 +64,7 @@ local in_mathzone = function()
   -- Then pass the table `{condition = in_mathzone}` to any snippet you want to
   -- expand only in math contexts.
 
-ls.add_snippets("tex", {
+ls.add_snippets("all", {
     s({
         trig = "\\(",
         name = "Inline Math Mode",
@@ -88,7 +88,56 @@ ls.add_snippets("tex", {
     }),
 
     s({
-        trig = "beg", 
+        trig = "\\left(",
+        name = "\\left \\right",
+        dscr = "Completes \\left( \\right)",
+        snippetType = "autosnippet"
+    }, {
+        t("\\left("),
+        i(1),
+        t("\\right")
+        }
+    ),
+
+     s({
+        trig = "\\left[",
+        name = "\\left \\right",
+        dscr = "Completes \\left[ \\right]",
+        snippetType = "autosnippet"
+    }, {
+        t("\\left["),
+        i(1),
+        t("\\right")
+        }
+    ),
+
+      s({
+        trig = "\\left{",
+        name = "\\left \\right",
+        dscr = "Completes \\left{ \\right}",
+        snippetType = "autosnippet"
+    }, {
+        t("\\left{"),
+        i(1),
+        t("\\right")
+        }
+    ),
+
+       s({
+        trig = "\\left|",
+        name = "\\left \\right",
+        dscr = "Completes \\left| \\right|",
+        snippetType = "autosnippet"
+    }, {
+        t("\\left|"),
+        i(1),
+        t("\\right|")
+        }
+    ),
+
+    s({
+        trig = "beg",
+        name = "Environment Setup",
         snippetType = "snippet"
     }, fmta(
         [[
@@ -105,9 +154,11 @@ ls.add_snippets("tex", {
     ),
 
     s({
-        trig = "//", 
-        snippetType = "autosnippet"},
-    fmta(
+        trig = "//",
+        name = "Fraction 1",
+        dscr = "Creates \\frac{}{} command",
+        snippetType = "autosnippet"
+    }, fmta(
       "\\frac{<>}{<>}",
       {
         i(1),
@@ -116,5 +167,240 @@ ls.add_snippets("tex", {
     ),
     {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
   ),
-    
+    s({
+        trig = "(%S+)/",
+        name = "Fraction 2",
+        dscr = "Turns a/ into \\frac{a}{}",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"},
+    {
+        f(function(_, snip) return "\\frac{"..snip.captures[1].."}{" end),
+        i(1),
+        t("}")
+    },
+    {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table
+  ),
+
+    s({
+        trig = "(%S+)bar",
+        name = "overbar",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\overline{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "(%S+)und",
+        name = "underline",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\underline{"..snip.captures[1].."}"
+    end, {})
+    ),
+
+   s({
+        trig = "(%S+)-dot",
+        name = "dot",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\dot{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+   s({
+        trig = "(%S+)-ddot",
+        name = "double dot",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\ddot{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "(%S+)hat",
+        name = "hat",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\hat{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "(%S+)vec",
+        name = "vector",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\vec{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "(%S+)ora",
+        name = "over right arrow",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\overrightarrow{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "(%S+)ola",
+        name = "over left arrow",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },
+    f(function(_, snip)
+        return "\\overleftarrow{"..snip.captures[1].."}"
+    end, {}),
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "dfd",
+        name = "first derivative",
+        snippetType = "autosnippet"
+    },{
+        t("\\dv{"),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}")
+    },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "dd",
+        name = "first derivative operator",
+        snippetType = "autosnippet"
+    }, {
+        t("\\dv{"),
+        i(1),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "d(%w+)fd",
+        name = "nth derivative",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\dv["..snip.captures[1].."]{"
+        end, {}),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "d(%w+)d",
+        name = "nth derivative operator",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\dv["..snip.captures[1].."]{" end, {}),
+        i(1),
+        t("}"),
+        },
+        {condition = in_mathzone}
+     ),
+ s({
+        trig = "pfp",
+        name = "first partial derivative",
+        snippetType = "autosnippet"
+    },{
+        t("\\pdv{"),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}")
+    },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "pp",
+        name = "first partial derivative operator",
+        snippetType = "autosnippet"
+    }, {
+        t("\\pdv{"),
+        i(1),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "p(%w+)fp",
+        name = "nth derivative",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\pdv["..snip.captures[1].."]{"
+        end, {}),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "p(%w+)p",
+        name = "nth derivative operator",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\pdv["..snip.captures[1].."]{" end, {}),
+        i(1),
+        t("}"),
+        },
+        {condition = in_mathzone}
+     ),
+
 })
+
