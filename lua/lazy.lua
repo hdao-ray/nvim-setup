@@ -13,20 +13,23 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   {import = "plugins"},
-  --{import = "plugins/future subdirectories"}
 })
 
 
-  --[[
---  require("plugins/temp_file"),
+  --{import = "plugins/future subdirectories"}
+
+
+--[[
+ --  require("plugins/temp_file"),
   require("plugins/colorscheme"),
   require("plugins/vimtex"),
   require("plugins/auto-pairs"),
   require("plugins/luasnip"),
-  require("plugins/nvim-cmp"),
+  --require("plugins/nvim-cmp"),
   require("plugins/nvim-tree"),
-  require("plugins/init")
-  ]]
+  require("plugins/init"),
+})]]
+
 --[[
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration

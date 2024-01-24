@@ -1,0 +1,12 @@
+# Fdb version 4
+["pdflatex"] 1702356941 "test3.tex" "test3.pdf" "test3" 1702356941 2
+  "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1701830006 41009 84b61f42d16d06bedb915f57aa2374cf ""
+  "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1701840453 8213458 9b02acdfcbc7f7e64e093f0e3dfb3539 ""
+  "c:/texlive/2023/texmf.cnf" 1701840312 713 e69b156964470283e0530f5060668171 ""
+  "test3.aux" 1702356941 34 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "test3.tex" 1702356515 0 d41d8cd98f00b204e9800998ecf8427e ""
+  (generated)
+  "test3.aux"
+  "test3.log"
+  "test3.pdf"
+  (rewritten before read)

@@ -5,35 +5,32 @@ update_events = 'TextChanged, TextChangedI',
 enable_autosnippets = true })
 
 local s = ls.snippet
-local sn = ls.snippet_node
-local isn = ls.indent_snippet_node
+--local sn = ls.snippet_node
+--local isn = ls.indent_snippet_node
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local events = require("luasnip.util.events")
-local ai = require("luasnip.nodes.absolute_indexer")
+--local c = ls.choice_node
+--local d = ls.dynamic_node
+--local r = ls.restore_node
+--local events = require("luasnip.util.events")
+--local ai = require("luasnip.nodes.absolute_indexer")
 local extras = require("luasnip.extras")
-local l = extras.lambda
+--local l = extras.lambda
 local rep = extras.rep
-local p = extras.partial
-local m = extras.match
-local n = extras.nonempty
-local dl = extras.dynamic_lambda
-local fmt = require("luasnip.extras.fmt").fmt
+--local p = extras.partial
+--local m = extras.match
+--local n = extras.nonempty
+--local dl = extras.dynamic_lambda
+--local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local conds = require("luasnip.extras.expand_conditions")
-local postfix = require("luasnip.extras.postfix").postfix
-local types = require("luasnip.util.types")
-local parse = require("luasnip.util.parser").parse_snippet
-local ms = ls.multi_snippet
-local k = require("luasnip.nodes.key_indexer").new_key
+--local conds = require("luasnip.extras.expand_conditions")
+--local postfix = require("luasnip.extras.postfix").postfix
+--local types = require("luasnip.util.types")
+--local parse = require("luasnip.util.parser").parse_snippet
+--local ms = ls.multi_snippet
+--local k = require("luasnip.nodes.key_indexer").new_key
 
-
-vim.keymap.set({"i"}, "<Tab>", function() 
-    ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<Tab>", function() ls.jump( 1) end, {silent = true})
 vim.keymap.set({"i", "s"}, "<S-Tab>", function() ls.jump(-1) end, {silent = true})
 
@@ -42,18 +39,6 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 		ls.change_choice(1)
 	end
 end, {silent = true})
-
-local date = function() return {os.date('%Y-%m-%d')} end
-ls.add_snippets("all", {
-        s({
-            trig = "bruh",
-            name = "Date",
-            dscr = "Date in the form of YYYY-MM-DD",
-        }, {
-            f(date, {})
-        }),
-        
-})
 
 --tex
 
@@ -65,6 +50,61 @@ local in_mathzone = function()
   -- expand only in math contexts.
 
 ls.add_snippets("all", {
+    s({
+        trig = "test",
+    }, t("bruh")),
+
+    s({
+        trig = "qsa",
+        name = "quick start article document",
+        dscr = "completes an article document setup",
+        snippetType = "snippet"
+    }, fmta(
+           [[
+           \documentclass[12pt]{article}
+           \usepackage[margin = 1in]{geometry}
+           \usepackage{graphicx, wrapfig, pifont, array, enumitem, amsmath, amsthm, mathtools, amssymb, faktor, xfrac, setspace, physics}
+
+           \renewcommand\qedsymbol{\(\blacksquare\)}
+
+           \DeclareMathOperator{\adj}{adj}
+           \DeclareMathOperator{\ord}{ord}
+           \DeclareMathOperator{\lcm}{lcm}
+           \DeclareMathOperator{\ima}{Im}
+
+           \newcommand{\eps}{\varepsilon}
+           \newcommand{\phv}{\varphi}
+           \newcommand{\tmod}[1]{~(\text{mod}~#1)}
+           \newcommand{\ang}[1]{\langle #1 \rangle}
+
+           \theoremstyle{definition}
+           \newtheorem*{df}{Definition}
+
+           %\newcolumntype{C}{>>{\(}c<<{\)}}
+
+           \allowdisplaybreaks
+
+           \title{<>}
+           \author{Raymond Hu}
+           \date{<>}
+
+           \begin{document}
+
+           \maketitle
+           \doublespacing
+
+           <>
+
+           \end{document}
+           ]],
+            {
+            i(1),
+            i(2),
+            i(3),
+            }
+        )
+    ),
+
     s({
         trig = "\\(",
         name = "Inline Math Mode",
@@ -124,6 +164,19 @@ ls.add_snippets("all", {
     ),
 
        s({
+        trig = "\\left<",
+        name = "\\left \\right",
+        dscr = "Completes \\left< \\right>",
+        snippetType = "autosnippet"
+    }, {
+        t("\\left<"),
+        i(1),
+        t("\\right>")
+        }
+    ),
+
+
+       s({
         trig = "\\left|",
         name = "\\left \\right",
         dscr = "Completes \\left| \\right|",
@@ -154,7 +207,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "//",
+        trig = "ff",
         name = "Fraction 1",
         dscr = "Creates \\frac{}{} command",
         snippetType = "autosnippet"
@@ -167,6 +220,38 @@ ls.add_snippets("all", {
     ),
     {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
   ),
+
+    s({
+        trig = "qf",
+        name = "quotient fraction",
+        dscr = "creates \\faktor{}{} for quotients",
+        snippetType = "autosnippet"
+    }, fmta(
+      "\\faktor{<>}{<>}",
+      {
+        i(1),
+        i(2),
+      }
+    ),
+    {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
+  ),
+
+    s({
+        trig = "qsf",
+        name = "small quotient fraction",
+        dscr = "creates \\xfrac{}{} for quotients",
+        snippetType = "autosnippet"
+    }, fmta(
+      "\\sfrac{<>}{<>}",
+      {
+        i(1),
+        i(2),
+      }
+    ),
+    {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
+  ),
+
+
     s({
         trig = "(%S+)/",
         name = "Fraction 2",
@@ -196,7 +281,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)und",
+        trig = "(%S+)-und",
         name = "underline",
         wordTrig = false,
         regTrig = true,
@@ -286,21 +371,32 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "dfd",
-        name = "first derivative",
+        trig = "(%S+)til",
+        name = "tilde",
+        wordTrig = false,
+        regTrig = true,
         snippetType = "autosnippet"
-    },{
-        t("\\dv{"),
-        i(1),
-        t("}{"),
-        i(2),
-        t("}")
     },
+    f(function(_, snip)
+        return "\\tilde{"..snip.captures[1].."}"
+    end, {}),
         {condition = in_mathzone}
     ),
 
     s({
         trig = "dd",
+        name = "differential",
+        snippetType = "autosnippet"
+    },{
+        t("\\dd{"),
+        i(1),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "dv",
         name = "first derivative operator",
         snippetType = "autosnippet"
     }, {
@@ -312,7 +408,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "d(%w+)fd",
+        trig = "d^(%w+)fv",
         name = "nth derivative",
         wordTrig = false,
         regTrig = true,
@@ -330,7 +426,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "d(%w+)d",
+        trig = "d^(%w+)v",
         name = "nth derivative operator",
         wordTrig = false,
         regTrig = true,
@@ -344,7 +440,7 @@ ls.add_snippets("all", {
         {condition = in_mathzone}
      ),
  s({
-        trig = "pfp",
+        trig = "pfv",
         name = "first partial derivative",
         snippetType = "autosnippet"
     },{
@@ -358,7 +454,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "pp",
+        trig = "pv",
         name = "first partial derivative operator",
         snippetType = "autosnippet"
     }, {
@@ -370,7 +466,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "p(%w+)fp",
+        trig = "p^(%w+)fv",
         name = "nth derivative",
         wordTrig = false,
         regTrig = true,
@@ -388,7 +484,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "p(%w+)p",
+        trig = "p^(%w+)v",
         name = "nth derivative operator",
         wordTrig = false,
         regTrig = true,
@@ -402,5 +498,82 @@ ls.add_snippets("all", {
         {condition = in_mathzone}
      ),
 
+    s({
+        trig = "epv",
+        name = "varepsilon",
+        snippetType = "autosnippet"
+    }, {
+        t("\\varepsilon")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "phv",
+        name = "varphi",
+        snippetType = "autosnippet"
+    }, {
+        t("\\varphi")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "o+",
+        name = "oplus",
+        snippetType = "autosnippet"
+    }, {
+        t("\\oplus")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "ot",
+        name = "otimes",
+        snippetType = "autosnippet"
+    }, {
+        t("\\otimes")
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "\\(%u)",
+        name = "blackboard bold",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\mathbb{"..snip.captures[1].."}" end)
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "([%a%)%}%]])(%d+) ",
+        name = "quick subscript",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    },{
+      f(function(_, snip) return snip.captures[1].."_{"..snip.captures[2].."} " end)
+    },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "([\\?[%w%(%)%[%]%{%}]+)__(%w+) ",
+        name = "quick subscript sequence",
+        dscr = "generates a_1, a_2, ... a_n given a and n as input",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip) return snip.captures[1].."_1, "..snip.captures[1].."_2, \\ldots, "..snip.captures[1].."_{"..snip.captures[2].. "} " end)
+        },
+        {condition = in_mathzone}
+    ),
 })
 
