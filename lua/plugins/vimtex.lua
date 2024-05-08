@@ -1,6 +1,7 @@
 return {
     'lervag/vimtex',
-    config = function()
+    lazy = false,
+    init = function()
     vim.g.compiler_method = "latexmk"
       vim.g.vimtex_compiler_latexmk = {
         build_dir = '',
@@ -15,13 +16,19 @@ return {
         },
       }
 
+      vim.g.vimtex_matchparen_enabled = 0
       vim.g.vimtex_enabled = 1
+
 
       vim.g.tex_flavor = 'latex'
 
-      vim.cmd('set conceallevel=2')
+      vim.cmd('set conceallevel=1')
 
       vim.g.tex_conceal = 'abdgms'
+
+      vim.g.vimtex_indent_on_ampersands = 0
+
+      vim.g.vimtex_indent_lists = {}
       -- Set your preferred PDF viewer
      -- vim.fn.system('set PATH=C:\\PROGRA~1\\WindowsApps\\KDEe.V.Okular_23.801.1522.0_x64__7vt06qxq7ptv8\\bin; %PATH%')
       vim.g.vimtex_view_general_viewer = "C:\\Users\\raymo\\AppData\\Local\\SumatraPDF\\SumatraPDF.exe"

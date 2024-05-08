@@ -33,22 +33,23 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({select = true}),
-
-          }),
-          sources = {
-            { name = "nvim_lsp" },
-            { name = "luasnip", option = { use_show_condition = false } },
-            { name = "buffer" },
-            { name = "path" },
-          },
-          formatting = {
-            format = lspkind.cmp_format({
-              maxwidth = 50,
-              ellipsis_char = "...",
-            }),
-          },
-        })
+        ['<C-CR>'] = cmp.mapping.confirm({select = true}),
+        --['<CR>'] = cmp.mapping.confirm({select = true}),
+      }),
+      sources = {
+        { name = "nvim_lsp" },
+        {name="omni"},
+        { name = "luasnip"},
+        { name = "buffer" },
+        { name = "path" },
+      },
+      formatting = {
+        format = lspkind.cmp_format({
+          maxwidth = 50,
+          ellipsis_char = "...",
+        }),
+      },
+    })
 
     cmp.setup.filetype("tex", {
       formatting = {
@@ -61,9 +62,9 @@ return {
         end,
       },
       sources = {
-        { name = "omni", trigger_characters = { "{", "\\" } },
+       { name = "omni", trigger_characters = { "{", "\\" } },
         { name = "luasnip" },
-        { name = 'buffer' },
+        --{ name = 'buffer' },
       },
     })
   end,

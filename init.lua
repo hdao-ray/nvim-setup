@@ -44,11 +44,32 @@ P.S. You can delete this when you're done too. It's your config now :)
 
 vim.cmd('cd C:\\Users\\raymo\\AppData\\Local\\nvim')
 
+vim.cmd([[
+  augroup CustomHighlights
+    autocmd!
+    autocmd ColorScheme * highlight Conceal ctermfg=white guifg=#ffb6e6
+  augroup END
+]])
+
+vim.cmd('set textwidth=79')
+vim.cmd('set wrap')
+
+vim.cmd('set autochdir')
+--vim.cmd('set textwidth=50')
+--vim.cmd([[autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+--]])
+--vim.cmd([[autocmd FileType tex :NoMatchParen]])
+vim.o.tabstop = 3
+vim.o.shiftwidth=3
+
+
+
 --vim.fn.system('set PATH=C:\\Users\\raymo\\AppData\\Local\\Microsoft\\WinGet\\Packages\\zig.zig_Microsoft.Winget.Source_8wekyb3d8bbwe\\zig-windows-x86_64-0.11.0; %PATH%')
+--
 
 --set font
 --vim.cmd('set guifont=Lilex\\ Nerd\\ Font\\ Mono:h14')
-vim.cmd('set guifont=AnonymicePro\\ Nerd\\ Font\\ Mono:h14')
+vim.cmd('set guifont=AnonymicePro\\ Nerd\\ Font\\ Mono:h11')
 
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
@@ -170,10 +191,9 @@ require('lazy').setup({
     end,
   },
 
+  ]]
 
-  -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
-  {
+ --[[ {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -246,8 +266,10 @@ require('lazy').setup({
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
       end,
     },
-  },
+  }
+  ]]
 
+--[[
   -- Color Scheme
   {
 
@@ -348,8 +370,10 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.o.background = 'dark'
+
 -- Set highlight on search
+
+vim.cmd('filetype plugin indent on')
 
 vim.o.hlsearch = false
 
@@ -365,7 +389,7 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
-vim.o.breakindent = true
+--vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -502,6 +526,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}
 --
+--[[
 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
@@ -540,8 +565,10 @@ vim.defer_fn(function()
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
+        ]]
+        --  [']m'] = '@function.outer',
+        --  [']]'] = '@class.outer',
+--[[
         },
         goto_next_end = {
           [']M'] = '@function.outer',
@@ -549,7 +576,10 @@ vim.defer_fn(function()
         },
         goto_previous_start = {
           ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
+          ]]
+        --  ['[['] = '@class.outer',
+--
+--[[
         },
         goto_previous_end = {
           ['[M'] = '@function.outer',
@@ -568,11 +598,12 @@ vim.defer_fn(function()
     },
   }
 end, 0)
-
+]]
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 
+--[[
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
@@ -633,11 +664,12 @@ require('which-key').register({
   ['<leader>'] = { name = 'VISUAL <leader>' },
   ['<leader>h'] = { 'Git [H]unk' },
 }, { mode = 'v' })
+]]
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
-require('mason-lspconfig').setup()
+--require('mason').setup()
+--require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -647,13 +679,15 @@ require('mason-lspconfig').setup()
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+--
+--[[  
 local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
     Lua = {
@@ -689,6 +723,7 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+]]
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

@@ -1,6 +1,6 @@
 return  {
 
-   'rose-pine/neovim',
+  --[[ 'rose-pine/neovim',
     name = 'rose-pine',
   config = function()
     vim.g.variant = 'auto'
@@ -55,6 +55,7 @@ return  {
   end
 
   }
+  ]]
 
   -- Theme inspired by Atom
     --'navarasu/onedark.nvim',
@@ -62,11 +63,10 @@ return  {
     --config = function()
      -- vim.cmd.colorscheme 'onedark'
     --end,
---[[
-    'ghifarit53/tokyonight-vim',
+    --[['ghifarit53/tokyonight-vim',
     priority = 1000,
     config = function()
-      vim.g.tokyonight_style = 'night'
+      vim.g.tokyonight_style = ''
       vim.g.tokyonight_transparent_background = '0'
       vim.g.tokyonight_menu_selection_backgroun = 'green'
       vim.g.tokyonight_disable_italic_comment = 0
@@ -74,5 +74,11 @@ return  {
       vim.g.tokyonight_cursor = 'red'
       vim.g.tokyonight_current_word = 'pink background'
       vim.cmd.colorscheme 'tokyonight'
-  end
---]]
+      ]]
+
+   'folke/tokyonight.nvim',
+   priority = 0,
+   config = function()
+      vim.cmd.colorscheme 'tokyonight-night'
+     end
+}

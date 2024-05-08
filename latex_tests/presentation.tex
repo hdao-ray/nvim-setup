@@ -25,13 +25,25 @@
 \date{}
 \begin{document}
 \maketitle
+
+\begin{frame}
+    \frametitle{Where We Are Going}
+% to give us all an idea of the overall goal, I'm going state a theorem that we're going to work toward understanding. It reads: Let phi be a nonconstant rational map from v1 to v2 where v1 and v2 are curves. Then phi induces an injection of their associated function fields that fixes C. And, for each injection of these function fields iota that fixes C, there is a unique nonconstant rational map phi from v1 to v2 so that phi-star is iota. The goal here is to work through the bare minimum material to understand what this is saying.
+    \textbf{Theorem}:         \begin{enumerate}
+            \item Let \(\varphi: V_1\to V_2\) be a nonconstant rational map where \(V_1\) and \(V_2\) are curves. Then \(\varphi\) induces an injection of function fields \(\varphi^\ast: \mathbb{C}(V_2) \to \mathbb{C}(V_1)\) that fixes \(\mathbb{C}\).
+
+            \item For each injection of function fields \(\iota : \mathbb{C}(V_2)\to \mathbb{C}(V_1)\) that fixes \(\mathbb{C}\), there is a unique nonconstant rational map \(\varphi: V_1 \to V_2\) such that \(\varphi^\ast = \iota\).
+
+    \end{enumerate}
+%Goal is to understand this claim, work through the bare minimum prerequisites
+\end{frame}
 \begin{frame}
     \frametitle{Projective Space}
 How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
       \begin{itemize}
           \item[\textrightarrow] if \((X, Y, Z) = (a, b, c)\) is a solution, then \(\lambda (a, b, c)\) is also a solution for all \(\lambda \in \mathbb{C}\)
           \item[\textrightarrow] it seems each solution corresponds to a solution set...
-        \item[\textrightarrow] we will see these solution sets can be described as equivalence classes
+        \item[\textrightarrow] we will describe these solution sets as equivalence classes
 
         \end{itemize}
 
@@ -39,7 +51,7 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
     \begin{frame}
 
         \frametitle{Projective Space 2}
-        Define the equivalence relation \(\sim\) on nonzero \(3\)-tuples in \(\mathbb{C}\) as \((x_0, x_1, x_{2}) \sim (y_0, y_1, y_{2})\) if and only if there exists \(\lambda \in \mathbb{C}^\ast\) such that \(x_i = \lambda y_i\) for all \(0\leq i\leq 2\).
+        Define the equivalence relation \(\sim\) on nonzero \(3\)-tuples in \(\mathbb{C}\) as \((x_0, x_1, x_{2}) \sim (y_0, y_1, y_{2})\) if and only if there exists \(\lambda \in \mathbb{C}^\times\) such that \(x_i = \lambda y_i\) for all \(0\leq i\leq 2\).
         \begin{itemize}
             \item[\textrightarrow] Then \(\mathbb{P}^2(\mathbb{C})\), or \(\mathbb{P}^2\), is the set of these equivalence classes. Denote the equivalence classes of \((x_0, x_1, x_2)\) by \([x_0: x_1: x_2]\)
  \end{itemize}
@@ -51,7 +63,7 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
     \frametitle{Varieties}
     The notation \(V: YZ = X^2\) defines \(V\) as the set of points in \(\mathbb{P}^2\) satisfying \(YZ = X^2\). i.e. \(V = \{[X:Y:Z]\in \mathbb{P}^2 \mid YZ = X^2 \}\).
 \begin{itemize}
-    \item[\textrightarrow] \(V\) is what we call an algebraic set. In this case, it is also called a variety.
+    \item[\textrightarrow] \(V\) is called a variety.
     \item[\textrightarrow] \(\mathbb{P}^n\), as well, is a variety for any \(n\in \mathbb{Z}^+\).
 
 \end{itemize}
@@ -64,7 +76,7 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
     How do we understand functions on \(\mathbb{P}^2\)?
     \begin{itemize}
 \item[\textrightarrow]
-    We say a polynomial \(f\in \mathbb{C}[X, Y, Z]\) is homogenous of degree \(d\) if each term has the same degree \(d\). Equivalently, \(f(\lambda(X, Y, Z)) = \lambda^d f(X, Y, Z)\) for any \(\lambda\in\mathbb{C}^\ast\).
+    We say a polynomial \(f\in \mathbb{C}[X, Y, Z]\) is homogenous of degree \(d\) if each term has the same degree \(d\). Equivalently, \(f(\lambda(X, Y, Z)) = \lambda^d f(X, Y, Z)\) for any \(\lambda\in\mathbb{C}^\times\).
 
 \item[\textrightarrow] For example, \(YZ - X^2\) is homogenous, but \(YZ - 1\) and \(Y^3 - XZ\) are not.
 
@@ -75,7 +87,8 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
     We define the function field of \(\mathbb{P}^2\), denoted \(\mathbb{C}(\mathbb{P}^2)\), as the subfield of functions \( \frac{f}{g}\) in \(\mathbb{C}(X, Y, Z)\) where \(f\) and \(g\) are homogenous polynomials of the same degree.
     \begin{itemize}
         \item[\textrightarrow] These functions are well-defined as functions of \(\mathbb{P}^2\)
-        
+       
+            \[\frac{f(\lambda(X, Y, Z))}{g(\lambda(X, Y, Z))} = \frac{\lambda^d f(X, Y, Z)}{\lambda^d g(X, Y, Z)} = \frac{f(X, Y, Z)}{g(X, Y, Z)}\]
     \end{itemize}
 
 
@@ -84,11 +97,12 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
 
 \begin{frame}
     \frametitle{Functions 3}
-    Like with \(\mathbb{P}^2\), we wish to define a function field over \(V\). To do this, we essentially set \(YZ - X^2\) to \(0\) in \(\mathbb{C}(\mathbb{P}^2)\).
+    Like with \(\mathbb{P}^2\), we wish to define a function field over \(V\). To do this, we essentially wish to set \(YZ - X^2\) to \(0\) in \(\mathbb{C}(\mathbb{P}^2)\).
     \begin{itemize}
-        \item[\textrightarrow] To do this, first take the elements of \(\mathbb{C}(\mathbb{P}^2)\)
-        \item[\textrightarrow] Remove the elements \( \frac{f}{g}\) where \(g\) is a multiple of \(YZ - X^2\).
-        \item[\textrightarrow] Set that two functions \( \frac{f_1}{g_1}\) and \( \frac{f_2}{g_2}\) are equivalent if \( \frac{f_1}{g_1} - \frac{f_2}{g_2}\) is a multiple of \(YZ - X^2\). %Essentially what we're doing here though, is we're modding out the remaining set by an equivalence relation
+        \item[\textrightarrow] To do this, first form the set of \(\frac{f}{g}\) in \(\mathbb{C}(\mathbb{P}^2)\) such that \(g\notin (YZ-X^2)\subseteq \mathbb{C}[X, Y, Z]\)         
+        \item[\textrightarrow] Set that two functions \( \frac{f_1}{g_1}\) and \( \frac{f_2}{g_2}\) are equivalent if \(f_1g_2 - f_2g_1\in (YZ-X^2)\)
+
+        \item[\(\star\)] Spiritually we are saying \( \frac{f_1}{g_1} - \frac{f_2}{g_2}\) is a ``multiple'' of \(YZ - X^2\) %Essentially what we're doing here though, is we're modding out the remaining set by an equivalence relation
         
     \end{itemize}
        \end{frame}
@@ -96,7 +110,7 @@ How do we describe the solutions to \(YZ = X^2\) in \(\mathbb{C}\)?
 \begin{frame}
     \frametitle{Rational Maps}
     A rational map is a map between two varieties. We define rational maps between varieties \(V_1\) and \(V_2\) by:
-    \[\varphi : V_1 \to V_2, \quad \varphi = [f_0: \ldots: f_n]\] where the functions \(f_0, \ldots, f_n \in \mathbb{C}(V_1)\), \(V_2\in\mathbb{P}^n\), and for any point \(P\in V_1\) where \(f_0, \ldots, f_n\) are all defined, \(\varphi(P)\in V_2\).
+    \[\varphi : V_1 \to V_2, \quad \varphi = [f_0: \ldots: f_n]\] where the functions \(f_0, \ldots, f_n \in \mathbb{C}(V_1)\), \(V_2\subseteq\mathbb{P}^n\), and for any point \(P\in V_1\) where \(f_0, \ldots, f_n\) are all defined, \(\varphi(P)\in V_2\).
 
     Example: Using the \(V\) from before, define \[\varphi: V \to \mathbb{P}^1, \quad \varphi = \left[ \frac{Y}{Z} : 1\right].\]
     \begin{itemize}
@@ -129,11 +143,9 @@ V \arrow[r, "\varphi"] \arrow[rd, "\varphi^\ast f = f \circ \varphi"', dashed] \
     \begin{itemize}
         \item Our map \(\varphi^\ast\) takes any function in \(\mathbb{C}(\mathbb{P}^1)\) and maps \(X\mapsto Y\), \(Y\mapsto Z\)
         \item This is an injective homomorphism of fields that fixes \(\mathbb{C}\)
-        \item No other rational map can induce this injection
-    \end{itemize}
-        Now, we generalize this
-
     
+    \end{itemize}
+
    % \textbf{Warning:} Note the difference between the variables \(X, Y\) in \(\mathbb{C}(\mathbb{P}^1)\) and \(X, Y, Z\) in \(\mathbb{C}(V)\).
     \end{frame}
 
@@ -143,18 +155,26 @@ V \arrow[r, "\varphi"] \arrow[rd, "\varphi^\ast f = f \circ \varphi"', dashed] \
 
         Essentially, a variety is a curve if its function field can be described in one free variable over \(\mathbb{C}\).
 
-       The prior examples \(V\) and \(\mathbb{P}^1\) are curves. We state without proof that \[ \mathbb{C}(\mathbb{P}^1) \cong \mathbb{C}(V) \cong \mathbb{C}(x)\] 
+       The prior examples \(V\) and \(\mathbb{P}^1\) are curves. In fact,  \[ \mathbb{C}(\mathbb{P}^1) \cong \mathbb{C}(V) \cong \mathbb{C}(x)\] 
 
     \end{frame}
 
     \begin{frame}
-        \frametitle{General Claim}
+        \frametitle{Big Claim}
+
         \begin{enumerate}
-            \item Let \(\varphi: V_1\to V_2\) be a nonconstant rational map where \(V_1\) and \(V_2\) are curves. Then \(\varphi\) induces an injection of function fields \(\varphi: \mathbb{C}(V_2) \to \mathbb{C}(V_1)\) that fixes \(\mathbb{C}\).
+            \item Let \(\varphi: V_1\to V_2\) be a nonconstant rational map where \(V_1\) and \(V_2\) are curves. Then \(\varphi\) induces an injection of function fields \(\varphi^\ast: \mathbb{C}(V_2) \to \mathbb{C}(V_1)\) that fixes \(\mathbb{C}\).
 
             \item For each injection of function fields \(\iota : \mathbb{C}(V_2)\to \mathbb{C}(V_1)\) that fixes \(\mathbb{C}\), there is a unique nonconstant rational map \(\varphi: V_1 \to V_2\) such that \(\varphi^\ast = \iota\).
 
             \item Thus, there is a one-to-one correspondence between nonconstant rational maps \(V_1 \to V_2\) and injections \(\mathbb{C}(V_2) \to \mathbb{C}(V_1)\) that fix \(\mathbb{C}\).
     \end{enumerate}
+
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Works Cited}
+
+        Silverman, Joseph H. \emph{The Arithmetic of Elliptic Curves}. Springer, 2016. 
     \end{frame}
 \end{document}

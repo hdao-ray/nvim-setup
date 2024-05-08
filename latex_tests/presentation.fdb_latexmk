@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1706036642 "presentation.tex" "presentation.pdf" "presentation" 1706036644 0
+["pdflatex"] 1706163735 "presentation.tex" "presentation.pdf" "presentation" 1706163739 0
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1701831706 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1701833506 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1701838735 1408 5937f58aa508ea2cea4901c07d10f5fe ""
@@ -21,6 +21,7 @@
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmss12.tfm" 1701831643 1324 37b971caf729d7edd9cbb9f9b0ea76eb ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmss8.tfm" 1701831643 1296 d77f431d10d47c8ea2cc18cf45346274 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm" 1701831643 1272 e2d13f0df30bf3ad990bb9d028e37f34 ""
+  "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm" 1701831643 1520 ca2bb4b78ac9800bd686e30c6d19ef95 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1701831643 1124 6c73e740cf17375f03eec0ee63599741 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1701831643 1116 933a60c408fc0a863a92debe84b2d294 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1701831643 1120 8b7d695260f3cff42e636090a8002094 ""
@@ -247,10 +248,10 @@
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1701840349 4754669 d96ac81ce84784930de265f48f40d2ce ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1701840453 8213458 9b02acdfcbc7f7e64e093f0e3dfb3539 ""
   "c:/texlive/2023/texmf.cnf" 1701840312 713 e69b156964470283e0530f5060668171 ""
-  "presentation.aux" 1706036644 1980 cd70c959e6c2574e4e42ddae5818e3e9 "pdflatex"
-  "presentation.nav" 1706036644 1295 6613b1ca7d9b3db42a4da034ba88e851 "pdflatex"
-  "presentation.out" 1706036644 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "presentation.tex" 1706036641 7727 1275835e998fd94531dc006e31dbf658 ""
+  "presentation.aux" 1706163738 2238 7accbf85196918edd51acc8661efe9b0 "pdflatex"
+  "presentation.nav" 1706163738 1481 4f9aeb0ce4e7574783916fd2a0a02bcd "pdflatex"
+  "presentation.out" 1706163738 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "presentation.tex" 1706163733 9187 99dc6073aacf69248481b08d9ee0e1ac ""
   (generated)
   "presentation.aux"
   "presentation.log"

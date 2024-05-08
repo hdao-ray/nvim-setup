@@ -47,9 +47,57 @@ local in_mathzone = function()
     return vim.fn['vimtex#syntax#in_mathzone']() == 1
   end
   -- Then pass the table `{condition = in_mathzone}` to any snippet you want to
-  -- expand only in math contexts.
+-- expand only in math contexts.
 
-ls.add_snippets("all", {
+ls.add_snippets("html", {
+   s({
+      trig = "qs",
+      name = "quick start for html",
+      dscr = "completes a standard skeleton for html",
+      snippetType = "snippet"
+   },
+    fmta(
+      [[
+      <<!DOCTYPE html>>
+      <<html lang="en">>
+         <<head>> 
+            <<meta charset="UFT-8">>
+            <<link type="text\css" rel="stylesheet" href="">>
+            <<title>><><</title>>
+            <<meta name="description" content="">>
+         <</head>>
+         <<body>>
+            <<div id="wrapper">>
+               <<header>>
+                  <>
+               <</header>>
+               <<nav>>
+                  <>
+               <</nav>>
+               <<main>>
+                  <>
+               <</main>>
+               <<footer>>
+                  <>
+               <</footer>>
+            <</div>>
+         <<script src="">><</script>>
+         <</body>>
+      <</html>>
+      ]],
+
+      {
+      i(1),
+      i(2),
+      i(3),
+      i(4),
+      i(5)
+      }
+     )
+   )
+})
+
+ls.add_snippets("tex", {
     s({
         trig = "test",
     }, t("bruh")),
@@ -71,11 +119,12 @@ ls.add_snippets("all", {
            \DeclareMathOperator{\ord}{ord}
            \DeclareMathOperator{\lcm}{lcm}
            \DeclareMathOperator{\ima}{Im}
+           \DeclareMathOperator{\itr}{int}
+           \DeclareMathOperator{\ext}{ext}
 
-           \newcommand{\eps}{\varepsilon}
-           \newcommand{\phv}{\varphi}
            \newcommand{\tmod}[1]{~(\text{mod}~#1)}
-           \newcommand{\ang}[1]{\langle #1 \rangle}
+           \newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+           \newcommand{\tang}[1]{\textlangle#1\textrangle}
 
            \theoremstyle{definition}
            \newtheorem*{df}{Definition}
@@ -85,13 +134,13 @@ ls.add_snippets("all", {
            \allowdisplaybreaks
 
            \title{<>}
-           \author{Raymond Hu}
+           \author{Ray Hu}
            \date{<>}
 
            \begin{document}
 
            \maketitle
-           \doublespacing
+           \onehalfspacing
 
            <>
 
@@ -126,6 +175,19 @@ ls.add_snippets("all", {
         i(1),
         t("\\]")
     }),
+
+    s({
+        trig = "\\{",
+        name = "Brackets",
+        dscr = "auto-completes brackets",
+        snippetType = "autosnippet"
+    }, {
+        t("\\{"),
+        i(1),
+        t("\\}")
+    }),
+
+
 
     s({
         trig = "\\left(",
@@ -164,19 +226,6 @@ ls.add_snippets("all", {
     ),
 
        s({
-        trig = "\\left<",
-        name = "\\left \\right",
-        dscr = "Completes \\left< \\right>",
-        snippetType = "autosnippet"
-    }, {
-        t("\\left<"),
-        i(1),
-        t("\\right>")
-        }
-    ),
-
-
-       s({
         trig = "\\left|",
         name = "\\left \\right",
         dscr = "Completes \\left| \\right|",
@@ -188,6 +237,18 @@ ls.add_snippets("all", {
         }
     ),
 
+       s({
+        trig = "txb",
+        name = "bold",
+        dscr = "Completes \\textbf",
+        snippetType = "autosnippet"
+    }, {
+        t("\\textbf{"),
+        i(1),
+        t("}")
+        }
+    ),
+
     s({
         trig = "beg",
         name = "Environment Setup",
@@ -195,7 +256,7 @@ ls.add_snippets("all", {
     }, fmta(
         [[
             \begin{<>}
-                <>
+               <>
             \end{<>}
         ]],
         {
@@ -221,7 +282,8 @@ ls.add_snippets("all", {
     {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
   ),
 
-    s({
+--[[
+    ({
         trig = "qf",
         name = "quotient fraction",
         dscr = "creates \\faktor{}{} for quotients",
@@ -250,10 +312,10 @@ ls.add_snippets("all", {
     ),
     {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
   ),
-
+]]
 
     s({
-        trig = "(%S+)/",
+        trig = "(%w+)/",
         name = "Fraction 2",
         dscr = "Turns a/ into \\frac{a}{}",
         wordTrig = false,
@@ -268,7 +330,7 @@ ls.add_snippets("all", {
   ),
 
     s({
-        trig = "(%S+)bar",
+        trig = "(%w)bar",
         name = "overbar",
         wordTrig = false,
         regTrig = true,
@@ -280,7 +342,7 @@ ls.add_snippets("all", {
         {condition = in_mathzone}
     ),
 
-    s({
+   --[[ s({
         trig = "(%S+)-und",
         name = "underline",
         wordTrig = false,
@@ -291,9 +353,23 @@ ls.add_snippets("all", {
         return "\\underline{"..snip.captures[1].."}"
     end, {})
     ),
+    ]]
+
+       s({
+        trig = "-und",
+        name = "underline",
+        dscr = "Completes \\underline{}",
+        snippetType = "autosnippet"
+    }, {
+        t("\\underline{"),
+        i(1),
+        t("}")
+        }
+    ),
+
 
    s({
-        trig = "(%S+)-dot",
+        trig = "(%w)dt",
         name = "dot",
         wordTrig = false,
         regTrig = true,
@@ -306,7 +382,7 @@ ls.add_snippets("all", {
     ),
 
    s({
-        trig = "(%S+)-ddot",
+        trig = "(%w)Dt",
         name = "double dot",
         wordTrig = false,
         regTrig = true,
@@ -319,7 +395,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)hat",
+        trig = "(%w)hat",
         name = "hat",
         wordTrig = false,
         regTrig = true,
@@ -332,7 +408,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)vec",
+        trig = "(%w)vec",
         name = "vector",
         wordTrig = false,
         regTrig = true,
@@ -345,7 +421,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)ora",
+        trig = "(%w)ora",
         name = "over right arrow",
         wordTrig = false,
         regTrig = true,
@@ -358,7 +434,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)ola",
+        trig = "(%w)ola",
         name = "over left arrow",
         wordTrig = false,
         regTrig = true,
@@ -371,14 +447,15 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "(%S+)til",
+        --[[trig = "([%w%/%{%}%\\]+)til"]]
+        trig = "(%w)til",
         name = "tilde",
         wordTrig = false,
         regTrig = true,
         snippetType = "autosnippet"
     },
     f(function(_, snip)
-        return "\\tilde{"..snip.captures[1].."}"
+        return "\\widetilde{"..snip.captures[1].."}"
     end, {}),
         {condition = in_mathzone}
     ),
@@ -396,6 +473,34 @@ ls.add_snippets("all", {
     ),
 
     s({
+        trig = "pp",
+        name = "partial differential",
+        snippetType = "autosnippet"
+    },{
+        t("\\partial{"),
+        i(1),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+
+
+--[[    s({
+        trig = "dfv",
+        name = "first derivative",
+        snippetType = "autosnippet"
+    }, {
+        t("\\dv{"),
+        i(1),
+        t("}{"),
+        i(2),
+        t("}")
+        },
+        {condition = in_mathzone}
+    ),
+]]
+
+    s({
         trig = "dv",
         name = "first derivative operator",
         snippetType = "autosnippet"
@@ -407,6 +512,7 @@ ls.add_snippets("all", {
         {condition = in_mathzone}
     ),
 
+    --[[
     s({
         trig = "d^(%w+)fv",
         name = "nth derivative",
@@ -424,6 +530,7 @@ ls.add_snippets("all", {
         },
         {condition = in_mathzone}
     ),
+    ]]
 
     s({
         trig = "d^(%w+)v",
@@ -439,6 +546,8 @@ ls.add_snippets("all", {
         },
         {condition = in_mathzone}
      ),
+
+    --[[
  s({
         trig = "pfv",
         name = "first partial derivative",
@@ -452,6 +561,7 @@ ls.add_snippets("all", {
     },
         {condition = in_mathzone}
     ),
+    ]]
 
     s({
         trig = "pv",
@@ -464,6 +574,8 @@ ls.add_snippets("all", {
         },
         {condition = in_mathzone}
     ),
+
+    --[[
 
     s({
         trig = "p^(%w+)fv",
@@ -482,6 +594,7 @@ ls.add_snippets("all", {
         },
         {condition = in_mathzone}
     ),
+    ]]
 
     s({
         trig = "p^(%w+)v",
@@ -539,7 +652,7 @@ ls.add_snippets("all", {
     ),
 
     s({
-        trig = "\\(%u)",
+        trig = "\\(%u),",
         name = "blackboard bold",
         wordTrig = false,
         regTrig = true,
@@ -552,26 +665,53 @@ ls.add_snippets("all", {
     ),
 
     s({
+        trig = "\\(%u)%.",
+        name = "mathcal",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\mathcal{"..snip.captures[1].."}" end)
+        },
+        {condition = in_mathzone}
+    ),
+
+    s({
+        trig = "\\(%u);",
+        name = "mathfrak",
+        wordTrig = false,
+        regTrig = true,
+        snippetType = "autosnippet"
+    }, {
+        f(function(_, snip)
+            return "\\mathfrak{"..snip.captures[1].."}" end)
+        },
+        {condition = in_mathzone}
+    ),
+
+
+    s({
         trig = "([%a%)%}%]])(%d+) ",
         name = "quick subscript",
         wordTrig = false,
         regTrig = true,
         snippetType = "autosnippet"
     },{
-      f(function(_, snip) return snip.captures[1].."_{"..snip.captures[2].."} " end)
+      f(function(_, snip) return snip.captures[1].."_{"..snip.captures[2].."}" end)
     },
         {condition = in_mathzone}
     ),
 
     s({
-        trig = "([\\?[%w%(%)%[%]%{%}]+)__(%w+) ",
+        trig = "([\\?[%w%[%]%{%}]+)__(%w+) ",
         name = "quick subscript sequence",
         dscr = "generates a_1, a_2, ... a_n given a and n as input",
         wordTrig = false,
         regTrig = true,
         snippetType = "autosnippet"
     }, {
-        f(function(_, snip) return snip.captures[1].."_1, "..snip.captures[1].."_2, \\ldots, "..snip.captures[1].."_{"..snip.captures[2].. "} " end)
+        f(function(_, snip) return snip.captures[1].."_{1}, "..snip.captures[1].."_{2}, \\ldots, "..snip.captures[1].."_{"..snip.captures[2].. "}" end)
         },
         {condition = in_mathzone}
     ),
